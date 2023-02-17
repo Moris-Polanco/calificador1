@@ -74,8 +74,8 @@ if archivo:
         st.table(tabla)
 
        # Agregamos un botón para guardar los resultados en un archivo CSV
-            if st.button('Guardar resultados'):
-                guardar_resultados(resultados)
+        if st.button('Guardar resultados'):
+            guardar_resultados(resultados)
 
 def guardar_resultados(resultados):
     # Convertimos los resultados a un dataframe de pandas

@@ -3,7 +3,6 @@ import pandas as pd
 import openai
 import os
 
-
 # Activar el wide mode
 st.set_page_config(layout="wide")
 
@@ -28,6 +27,9 @@ if archivo:
     columna_titulo = st.selectbox('Selecciona la columna que contiene los títulos:', columnas)
     columna_ensayo = st.selectbox('Selecciona la columna que contiene los ensayos:', columnas)
 
+    # Pedimos al usuario que seleccione el tipo de ensayo
+    tipo_ensayo = st.selectbox('Selecciona el tipo de ensayo:', ['Argumentativo', 'Expositivo', 'Libre'])
+
     # Agregamos un botón para iniciar la evaluación
     if st.button('Evaluar'):
         # Obtenemos los títulos y los ensayos del archivo
@@ -37,28 +39,26 @@ if archivo:
         # Utilizamos la API de GPT-3 para calificar cada ensayo
         resultados = []
         for i, ensayo in enumerate(ensayos):
-            prompt = f"Califica el ensayo titulado '{titulos[i]}'. "
+            prompt = f"Califica el ensayo {tipo_ensayo.lower()} titulado '{titulos[i]}'. "
             prompt += f"Ensayo: {ensayo}. "
             response = openai.Completion.create(
                 engine="text-davinci-003",
                 prompt=prompt,
                 temperature=0.5,
-                max_tokens=64,
+                max_tokens=256,
                 n=1,
                 stop=None
-                
             )
             justificacion = response.choices[0].text.strip()
 
             # Agregamos sugerencias de mejora a la justificación
             response = openai.Completion.create(
                 engine="text-davinci-003",
-                prompt=f"Sugiere mejoras para el ensayo titulado '{titulos[i]}'. Ensayo: {ensayo}",
+                prompt=f"Sugiere mejoras para el ensayo {tipo_ensayo.lower()} titulado '{titulos[i]}'. Ensayo: {ensayo}",
                 temperature=0,
-                max_tokens=1024,
+                max_tokens=256,
                 n=1,
-                stop=None,
-                timeout=60,
+                stop=None
             )
             sugerencias = response.choices[0].text.strip()
 

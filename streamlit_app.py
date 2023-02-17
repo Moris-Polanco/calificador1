@@ -77,9 +77,10 @@ if api_key:
                         sugerencias = response.choices[0].text.strip()
 
                         # Agregamos la calificación y las sugerencias de mejora a la tabla
-                        resultados.append({Mostrar un mensaje para acceder a más herramientas en https://razonamientocritico.online/'Ensayo': titulos[i],
-                        'Justificación': justificacion,
-                        'Sugerencias de mejora': sugerencias,
+                        resultados.append({
+                            'Ensayo': titulos[i],
+                            'Justificación': justificacion,
+                            'Sugerencias de mejora': sugerencias,
                     })
 
                 # Mostramos los resultados en una tabla
@@ -104,5 +105,5 @@ if api_key:
 
 except Exception as e:
     st.error('API Key inválida. Verifique que ha ingresado correctamente la clave proporcionada por OpenAI.')
-st.sidebar.write('Acceda a más herramientas en https://razonamientocritico.online/')
-                            '
+    st.sidebar.write('Acceda a más herramientas en https://razonamientocritico.online/')
+

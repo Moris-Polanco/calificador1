@@ -47,7 +47,7 @@ if archivo:
                 engine="text-davinci-003",
                 prompt=prompt,
                 temperature=0,
-                max_tokens=128,
+                max_tokens=256,
                 n=1,
                 stop=None,
                 timeout=60
@@ -59,7 +59,7 @@ if archivo:
                 engine="text-davinci-003",
                 prompt=f"Sugiere mejoras para el ensayo {tipo_ensayo.lower()} titulado '{titulos[i]}'. Ensayo: {ensayo}",
                 temperature=0,
-                max_tokens=128,
+                max_tokens=256,
                 n=1,
                 stop=None,
                 timeout=60,

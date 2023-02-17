@@ -9,7 +9,7 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 # Agregamos información en una columna a la izquierda
 st.sidebar.title('Calificador de ensayos')
 st.sidebar.subheader('Instrucciones')
-st.sidebar.markdown('Suba un archivo .XLSX con los ensayos de sus alumnos y especifique qué columna contiene los ensayos. Gradé los criterios de calificación.')
+st.sidebar.markdown('Suba un archivo .XLSX con los ensayos de sus alumnos y especifique qué columna contiene los ensayos. Gradúe los criterios de calificación.')
 st.sidebar.subheader('Autor')
 st.sidebar.markdown('Moris Polanco')
 
@@ -17,7 +17,7 @@ st.sidebar.markdown('Moris Polanco')
 archivo = st.file_uploader('Cargar archivo Excel', type=['xlsx'])
 
 # Definimos los criterios de calificación
-criterios = ['Originalidad', 'Claridad', 'Coherencia', 'Relevancia']
+criterios = ['Tesis', 'Razones', 'Objeciones', 'Réplica']
 
 # Si se subió un archivo, lo procesamos
 if archivo:
@@ -43,7 +43,7 @@ if archivo:
             prompt += f"{criterio}: {peso}, "
         prompt += f"Ensayo: {ensayo}."
         response = openai.Completion.create(
-            engine="text-davinci-002",
+            engine="text-davinci-003",
             prompt=prompt,
             temperature=0.5,
             max_tokens=1024,

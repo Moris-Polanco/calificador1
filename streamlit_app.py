@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import openai
-import os
 
 # Accedemos a la clave de API de OpenAI a través de una variable de entorno
 openai.api_key = os.environ.get("OPENAI_API_KEY")
@@ -38,9 +37,9 @@ if archivo:
         prompt = f"Califica el ensayo titulado '{titulos[i]}'. "
         prompt += f"Ensayo: {ensayo}. "
         response = openai.Completion.create(
-            engine="text-davinci-003",
+            engine="text-davinci-002",
             prompt=prompt,
-            temperature=0,
+            temperature=0.5,
             max_tokens=1024,
             n=1,
             stop=None,
@@ -50,7 +49,7 @@ if archivo:
 
         # Agregamos sugerencias de mejora a la justificación
         response = openai.Completion.create(
-            engine="text-davinci-002",
+            engine="text-davinci-003",
             prompt=f"Sugiere mejoras para el ensayo titulado '{titulos[i]}'. Ensayo: {ensayo}",
             temperature=0,
             max_tokens=1024,

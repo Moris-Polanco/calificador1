@@ -75,7 +75,7 @@ if archivo:
         tabla = pd.DataFrame(resultados)
         st.table(tabla)
         
-      # Guardar los resultados en un archivo de Excel
+        # Guardar los resultados en un archivo de Excel
         nombre_archivo = 'resultados.xlsx'
         tabla.to_excel(nombre_archivo, index=False)
 
@@ -87,6 +87,5 @@ if archivo:
             mime='application/vnd.ms-excel'
 )
 
-)
 
 

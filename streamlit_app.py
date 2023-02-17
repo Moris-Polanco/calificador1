@@ -12,7 +12,7 @@ st.set_page_config(layout="wide")
 api_key = st.sidebar.text_input("APIkey", type="password")
   # Using the streamlit cache
   @st.cache
-  def process_prompt(input):
+def process_prompt(input):
 
   return pred.model_prediction(input=input.strip() , api_key=api_key)
 

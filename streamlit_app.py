@@ -73,3 +73,13 @@ if archivo:
         st.write('Resultados:')
         tabla = pd.DataFrame(resultados)
         st.table(tabla)
+
+        # Agregamos un botón para exportar los resultados a un archivo Excel
+if st.button('Exportar resultados a Excel'):
+    st.write('Exportando resultados...')
+    with st.spinner('Exportando resultados...'):
+        # Creamos un DataFrame con los resultados y lo exportamos a un archivo Excel
+        df_resultados = pd.DataFrame(resultados)
+        nombre_archivo = 'resultados_ensayos.xlsx'
+        df_resultados.to_excel(nombre_archivo, index=False)
+    st.success(f'Los resultados han sido exportados al archivo {nombre_archivo}')

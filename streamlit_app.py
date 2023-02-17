@@ -33,14 +33,16 @@ if archivo:
         response = openai.Completion.create(
             engine="text-davinci-003",
             prompt=prompt,
-            temperature=0.5,
+            temperature=0,
             max_tokens=1024,
             n=1,
-            stop=None,
-            timeout=60,
+            stop=None
         )
         justificacion = response.choices[0].text.strip()
-        nota = justificacion.split("Nota:")[1].split(".")[0].strip()
+        if "Nota:" in justificacion:
+            nota = justificacion.split("Nota:")[1].split(".")[0].strip()
+        else:
+            nota = '0'
         resultados.append({'Calificación': nota, 'Justificación': justificacion})
 
     # Mostramos los resultados en una tabla

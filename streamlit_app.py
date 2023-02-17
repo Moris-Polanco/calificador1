@@ -27,20 +27,10 @@ if archivo:
 
     # Utilizamos la API de GPT-3 para calificar cada ensayo
     resultados = []
-    for i, ensayo in enumerate(ensayos):
-        prompt = f"Califica este ensayo. Nota: "
-        nota = st.slider(f'Asigna una nota del 1 al 10 para el ensayo {i+1}:', key=f'nota_{i}', min_value=1, max_value=10, step=1)
-        prompt += str(nota) + ". Ensayo: " + ensayo
-        response = openai.Completion.create(
-            engine="text-davinci-002",
-            prompt=prompt,
-            temperature=0.5,
-            max_tokens=1024,
-            n=1,
-            stop=None,
-            timeout=60,
-        )
-        justificacion = response.choices[0].text.strip()
+    for ensayo in ensayos:
+        st.write(f'Ensayo: {ensayo}')
+        nota = st.number_input('Asigna una nota del 1 al 10:', min_value=1, max_value=10, step=1)
+        justificacion = st.text_input('Justificación de la nota:')
         resultados.append({'Calificación': nota, 'Justificación': justificacion})
 
     # Mostramos los resultados en una tabla

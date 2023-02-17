@@ -88,6 +88,12 @@ def guardar_resultados(resultados):
         # Guardamos los resultados en un archivo CSV
         with open(archivo_guardado.name, 'w') as f:
             df.to_csv(f, index=False)
-
+            
+# Agregamos un botón para guardar los resultados en un archivo CSV
+        st.download_button(
+            label='Descargar resultados como archivo CSV',
+            data=tabla.to_csv(index=False),
+            file_name='resultados.csv',
+            mime='text/csv'
         # Mostramos un mensaje de éxito
         st.write('Los resultados se han guardado correctamente en el archivo CSV.')

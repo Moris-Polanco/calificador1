@@ -82,11 +82,12 @@ def guardar_resultados(resultados):
     df = pd.DataFrame(resultados)
 
     # Pedimos al usuario que seleccione la ubicación y el nombre del archivo
-    archivo_guardado = st.file_uploader('Selecciona la ubicación y el nombre del archivo donde guardar los resultados', type=['csv'], accept_multiple_files=False)
+    archivo_guardado = st.file_uploader('Selecciona la ubicación y el nombre del archivo donde guardar los resultados', type=['csv'])
 
     if archivo_guardado:
         # Guardamos los resultados en un archivo CSV
-        df.to_csv(archivo_guardado.name, index=False)
+        with open(archivo_guardado.name, 'w') as f:
+            df.to_csv(f, index=False)
 
         # Mostramos un mensaje de éxito
         st.write('Los resultados se han guardado correctamente en el archivo CSV.')

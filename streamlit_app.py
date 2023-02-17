@@ -5,6 +5,8 @@ import os
 from docx import Document
 from docx.shared import Inches
 
+# Ocultar los detalles del archivo cargado en Streamlit
+st.set_option('deprecation.showfileUploaderEncoding', False)
 
 # Activar el wide mode
 st.set_page_config(layout="wide")

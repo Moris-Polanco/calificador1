@@ -14,7 +14,7 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 st.title('Evaluador de ensayos')
 
 # Agregamos información de instrucciones
-st.write('Suba un archivo .XLSX con los ensayos de sus alumnos.')
+st.write('Suba un archivo .XLSX con los ensayos de sus alumnos. Máximo: 10 ensayos.')
 
 # Pedimos al usuario que suba el archivo Excel
 archivo = st.file_uploader('Cargar archivo Excel', type=['xlsx'])
@@ -31,8 +31,8 @@ if archivo:
     # Agregamos un botón para iniciar la evaluación
     if st.button('Evaluar'):
         # Obtenemos los títulos y los ensayos del archivo
-        titulos = data[columna_titulo].tolist()
-        ensayos = data[columna_ensayo].tolist()
+        titulos = data[columna_titulo].tolist().head(10)
+        ensayos = data[columna_ensayo].tolist().head(10)
 
         # Utilizamos la API de GPT-3 para calificar cada ensayo
         resultados = []

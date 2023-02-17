@@ -92,8 +92,4 @@ if not st.session_state.archivo_cargado:
                     mime='application/vnd.ms-excel'
                 )
 
-                # Actualizar la variable de estado para indicar que se ha cargado un archivo
-                st.session_state.archivo_cargado = True
-        else:
-            st.warning('Por favor, cargue un archivo. Solo se permite un archivo por sesión.')
-
+                

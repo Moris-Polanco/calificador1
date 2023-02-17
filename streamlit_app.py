@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import openai
 import os
+import base64
 
 # Activar el wide mode
 st.set_page_config(layout="wide")

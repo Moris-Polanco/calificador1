@@ -75,9 +75,8 @@ if archivo:
         tabla = pd.DataFrame(resultados)
         st.table(tabla)
         
-        # Agregamos un botón para descargar los resultados en un archivo CSV
-        csv = tabla.to_csv(index=False)
-        b64 = base64.b64encode(csv.encode()).decode()
-        href = f'<a href="data:file/csv;base64,{b64}" download="resultados.csv">Descargar resultados</a>'
+        # Creamos un enlace para descargar los resultados en formato Excel
+        archivo_excel = tabla.to_excel(index=False)
+        b64 = base64.b64encode(archivo_excel).decode()
+        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="resultados.xlsx">Descargar resultados</a>'
         st.markdown(href, unsafe_allow_html=True)
-

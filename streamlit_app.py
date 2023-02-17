@@ -80,7 +80,7 @@ if archivo:
             st.write('Exportando resultados...')
             with st.spinner('Exportando resultados...'):
         # Creamos un nuevo documento Word
-        document = Document()
+            document = Document()
 
         # Agregamos un encabezado
         document.add_heading('Resultados de la evaluación', 0)

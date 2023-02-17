@@ -73,10 +73,10 @@ if archivo:
         tabla = pd.DataFrame(resultados)
         st.table(tabla)
 
-        # Agregamos un botón para guardar los resultados en un archivo Excel
+        # Agregamos un botón para guardar los resultados en un archivo CSV
         st.download_button(
-            label='Descargar resultados como archivo Excel',
-            data=tabla.to_excel(index=False, header=True),
-            file_name='resultados.xlsx',
-            mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        )
+            label='Descargar resultados como archivo CSV',
+            data=tabla.to_csv(index=False),
+            file_name='resultados.csv',
+            mime='text/csv'
+       

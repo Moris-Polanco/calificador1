@@ -60,7 +60,8 @@ if archivo:
                 temperature=0,
                 max_tokens=256,
                 n=1,
-                stop=None
+                stop=None,
+                timeout=120
             )
             sugerencias = response.choices[0].text.strip()
 

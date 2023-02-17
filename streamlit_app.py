@@ -9,8 +9,14 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 # Pedimos al usuario que suba el archivo Excel
 archivo = st.file_uploader('Cargar archivo Excel', type=['xlsx'])
 
-# Definimos los criterios de calificación
-criterios = ['Problema', 'Tesis', 'Razones', 'Objeciones', 'Réplica', 'Conclusiones']
+# Pedimos al usuario que defina los criterios de calificación
+st.write('Defina los criterios de calificación:')
+criterios = []
+while True:
+    criterio = st.text_input('Criterio:')
+    if criterio == '':
+        break
+    criterios.append(criterio)
 
 # Si se subió un archivo, lo procesamos
 if archivo:

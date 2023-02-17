@@ -8,7 +8,8 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 # Agregamos información en una columna a la izquierda
 st.sidebar.title('Calificador de ensayos')
-st.sidebar.markdown('**Instrucciones:**\n\nSuba un archivo .XLSX con los ensayos de sus alumnos y especifique qué columna contiene los ensayos. Gradé los criterios de calificación.')
+st.sidebar.subheader('Instrucciones')
+st.sidebar.markdown('Suba un archivo .XLSX con los ensayos de sus alumnos y especifique qué columna contiene los ensayos. Gradé los criterios de calificación.')
 st.sidebar.subheader('Autor')
 st.sidebar.markdown('Moris Polanco')
 

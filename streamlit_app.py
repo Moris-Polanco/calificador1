@@ -75,16 +75,18 @@ if archivo:
         tabla = pd.DataFrame(resultados)
         st.table(tabla)
         
-        # Guardar los resultados en un archivo de Excel
+      # Guardar los resultados en un archivo de Excel
         nombre_archivo = 'resultados.xlsx'
         tabla.to_excel(nombre_archivo, index=False)
 
         # Descargar el archivo de Excel
         st.download_button(
             label='Descargar resultados en Excel',
-            data=tabla.to_excel(index=False),
+            data=open(nombre_archivo, 'rb').read(),
             file_name=nombre_archivo,
             mime='application/vnd.ms-excel'
+)
+
 )
 
 

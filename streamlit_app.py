@@ -2,6 +2,7 @@ import os
 import openai
 import streamlit as st
 import pandas as pd
+import re
 
 # Accedemos a la clave de API de OpenAI a través de una variable de entorno
 openai.api_key = os.environ.get("OPENAI_API_KEY")
@@ -33,16 +34,20 @@ if archivo:
         response = openai.Completion.create(
             engine="text-davinci-003",
             prompt=prompt,
-            temperature=0,
+            temperature=0.5,
             max_tokens=1024,
             n=1,
-            stop=None
+            stop=None,
+            timeout=60,
         )
         justificacion = response.choices[0].text.strip()
-        if "Nota:" in justificacion:
-            nota = justificacion.split("Nota:")[1].split(".")[0].strip()
-        else:
-            nota = '0'
+
+        # Extraemos la nota de la justificación
+        nota = '0'
+        match = re.search(r'\d+', justificacion)
+        if match:
+            nota = match.group()
+
         resultados.append({'Calificación': nota, 'Justificación': justificacion})
 
     # Mostramos los resultados en una tabla

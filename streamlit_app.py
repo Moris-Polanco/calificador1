@@ -3,7 +3,6 @@ import pandas as pd
 import openai
 import os
 
-
 # Activar el wide mode
 st.set_page_config(layout="wide")
 
@@ -73,21 +72,11 @@ if archivo:
         st.write('Resultados:')
         tabla = pd.DataFrame(resultados)
         st.table(tabla)
-        
+
         # Agregamos un botón para guardar los resultados en un archivo CSV
-        if st.button('Guardar resultados'):
-            guardar_resultados(resultados)
-            
-def guardar_resultados(resultados):
-    # Convertimos los resultados a un dataframe de pandas
-    df = pd.DataFrame(resultados)
-
-    # Obtenemos la ruta de la carpeta de descargas del usuario
-    ruta_descargas = os.path.expanduser("~") + "/Downloads/"
-
-    # Guardamos los resultados en un archivo CSV en la carpeta de descargas del usuario
-    archivo_guardado = ruta_descargas + "resultados.csv"
-    df.to_csv(archivo_guardado, index=False)
-
-    # Mostramos un mensaje de éxito
-    st.write('Los resultados se han guardado correctamente en la carpeta de descargas del usuario.')
+        st.download_button(
+            label='Descargar resultados como archivo CSV',
+            data=tabla.to_csv(index=False),
+            file_name='resultados.csv',
+            mime='text/csv'
+       

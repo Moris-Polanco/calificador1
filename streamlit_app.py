@@ -48,7 +48,9 @@ if archivo:
             timeout=60,
         )
         justificacion = response.choices[0].text.strip()
-        nota_ortografia = int(justificacion.split("Ortografía:")[1].split(".")[0].strip())
+        nota_ortografia = 0
+        if "Ortografía:" in justificacion:
+            nota_ortografia = int(justificacion.split("Ortografía:")[1].split(".")[0].strip())
         nota_argumentacion = int(justificacion.split("Argumentación:")[1].split(".")[0].strip())
         nota_total = nota_ortografia * valores_criterios['Ortografía'] + nota_argumentacion * valores_criterios['Argumentación']
         resultados.append({'Calificación': nota_total, 'Justificación': justificacion})

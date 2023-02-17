@@ -34,45 +34,49 @@ if archivo:
         titulos = data[columna_titulo].head(10).tolist()
         ensayos = data[columna_ensayo].head(10).tolist()
 
-        # Utilizamos la API de GPT-3 para calificar cada ensayo
-        resultados = []
-        for i, ensayo in enumerate(ensayos):
-            prompt = f"Califica el ensayo titulado '{titulos[i]}'. "
-            prompt += f"Ensayo: {ensayo}. "
-            response = openai.Completion.create(
-                engine="text-davinci-003",
-                prompt=prompt,
-                temperature=0.5,
-                max_tokens=512,
-                n=1,
-                stop=None
-                
-            )
-            justificacion = response.choices[0].text.strip()
+if st.button('Evaluar'):
+    # Obtenemos los títulos y los ensayos del archivo
+    titulos = data[columna_titulo].head(10).tolist()
+    ensayos = data[columna_ensayo].head(10).tolist()
 
-            # Agregamos sugerencias de mejora a la justificación
-            response = openai.Completion.create(
-                engine="text-davinci-003",
-                prompt=f"Sugiere mejoras para el ensayo titulado '{titulos[i]}'. Ensayo: {ensayo}",
-                temperature=0,
-                max_tokens=512,
-                n=1,
-                stop=None,
-                timeout=60,
-            )
-            sugerencias = response.choices[0].text.strip()
+    # Utilizamos la API de GPT-3 para calificar cada ensayo
+    resultados = []
+    for i, ensayo in enumerate(ensayos):
+        prompt = f"Califica el ensayo titulado '{titulos[i]}'. "
+        prompt += f"Ensayo: {ensayo}. "
+        response = openai.Completion.create(
+            engine="text-davinci-003",
+            prompt=prompt,
+            temperature=0.5,
+            max_tokens=512,
+            n=1,
+            stop=None
+        )
+        justificacion = response.choices[0].text.strip()
 
-            # Agregamos la calificación y las sugerencias de mejora a la tabla
-            resultados.append({
-                'Ensayo': titulos[i],
-                'Justificación': justificacion,
-                'Sugerencias de mejora': sugerencias,
-            })
+        # Agregamos sugerencias de mejora a la justificación
+        response = openai.Completion.create(
+            engine="text-davinci-003",
+            prompt=f"Sugiere mejoras para el ensayo titulado '{titulos[i]}'. Ensayo: {ensayo}",
+            temperature=0,
+            max_tokens=512,
+            n=1,
+            stop=None,
+            timeout=60,
+        )
+        sugerencias = response.choices[0].text.strip()
 
-        # Mostramos los resultados en una tabla
-        st.write('Resultados:')
-        tabla = pd.DataFrame(resultados)
-        st.table(tabla)
+        # Agregamos la calificación y las sugerencias de mejora a la tabla
+        resultados.append({
+            'Ensayo': titulos[i],
+            'Justificación': justificacion,
+            'Sugerencias de mejora': sugerencias,
+        })
+
+    # Mostramos los resultados en una tabla
+    st.write('Resultados:')
+    tabla = pd.DataFrame(resultados)
+    st.table(tabla)
 
         # Agregamos un botón para exportar los resultados a un archivo Excel
 if st.button('Exportar resultados a Excel'):

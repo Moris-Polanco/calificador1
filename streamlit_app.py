@@ -3,8 +3,6 @@ import pandas as pd
 import openai
 import os
 
-# Establecer el tema dark
-st.set_theme('dark')
 
 # Activar el wide mode
 st.set_page_config(layout="wide")

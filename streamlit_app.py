@@ -69,33 +69,6 @@ if archivo:
                 'Sugerencias de mejora': sugerencias,
             })
 
-        # Mostramos los resultados en una tabla
-        st.write('Resultados:')
-        tabla = pd.DataFrame(resultados)
-        st.table(tabla)
-
-                # Agregamos un botón para guardar los resultados en un archivo Excel
+         # Mostramos los resultados en una tabla en un pop up
         if len(resultados) > 0:
-            if st.button('Guardar resultados en Excel'):
-                archivo_guardado = pd.DataFrame(resultados)
-                archivo_guardado.to_excel("resultados.xlsx", index=False, encoding='utf-8-sig')
-                st.success('¡Resultados guardados en archivo Excel!')
-
-        # Agregamos un botón para guardar los resultados en un archivo zip
-        if len(resultados) > 0:
-            if st.button('Guardar resultados en archivo zip'):
-                # Creamos un archivo zip y lo abrimos en modo de escritura
-                with zipfile.ZipFile("resultados.zip", mode='w') as archivo_zip:
-                    # Agregamos el archivo CSV con los resultados al archivo zip
-                    archivo_csv = pd.DataFrame(resultados)
-                    archivo_csv.to_csv("resultados.csv", index=False, encoding='utf-8-sig')
-                    archivo_zip.write("resultados.csv")
-                # Descargamos el archivo zip
-                st.download_button(
-                    label='Descargar resultados como archivo zip',
-                    data=open("resultados.zip", "rb").read(),
-                    file_name='resultados.zip',
-                    mime='application/zip'
-                )
-                st.success('¡Resultados guardados en archivo zip!')
-
+            st.write('Resultados:', table.to_html(index=False), modal=True)

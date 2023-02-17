@@ -109,5 +109,4 @@ def process_prompt(input):
                         mime='application/vnd.ms-excel'
                     )
 
-                    # Actualizamos la variable de estado del archivo cargado
-                    st.session_state.archivo_cargado = True
+                  

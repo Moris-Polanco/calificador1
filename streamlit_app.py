@@ -6,19 +6,17 @@ import pandas as pd
 # Accedemos a la clave de API de OpenAI a través de una variable de entorno
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
+# Agregamos información en una columna a la izquierda
+st.sidebar.title('Calificador de ensayos')
+st.sidebar.markdown('**Instrucciones:**\n\nSuba un archivo .XLSX con los ensayos de sus alumnos y especifique qué columna contiene los ensayos. Gradé los criterios de calificación.')
+st.sidebar.subheader('Autor')
+st.sidebar.markdown('Moris Polanco')
+
 # Pedimos al usuario que suba el archivo Excel
 archivo = st.file_uploader('Cargar archivo Excel', type=['xlsx'])
 
-# Pedimos al usuario que defina los criterios de calificación
-st.write('Defina los criterios de calificación:')
-criterios = []
-i = 0
-while True:
-    criterio = st.text_input(f'Criterio {i}:', key=f'criterio_{i}')
-    i += 1
-    if criterio == '':
-        break
-    criterios.append(criterio)
+# Definimos los criterios de calificación
+criterios = ['Originalidad', 'Claridad', 'Coherencia', 'Relevancia']
 
 # Si se subió un archivo, lo procesamos
 if archivo:

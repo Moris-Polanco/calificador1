@@ -70,5 +70,6 @@ if archivo:
             })
 
          # Mostramos los resultados en una tabla en un pop up
-            if len(resultados) > 0:
-                st.table(resultados, modal=True)
+        if len(resultados) > 0:
+            tabla_resultados = pd.DataFrame(resultados)
+            st.table(tabla_resultados, modal=True)

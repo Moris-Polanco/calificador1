@@ -62,7 +62,7 @@ if archivo:
                 max_tokens=256,
                 n=1,
                 stop=None,
-                timeout=60,
+                timeout=60
             )
             sugerencias = response.choices[0].text.strip()
 

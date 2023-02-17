@@ -73,9 +73,21 @@ if archivo:
         tabla = pd.DataFrame(resultados)
         st.table(tabla)
 
-        # Agregamos un botón para guardar los resultados en un archivo CSV
+        # Agregamos un botón para guardar los resultados en un archivo Excel
         if len(resultados) > 0:
-            if st.button('Guardar resultados'):
+            if st.button('Guardar resultados en Excel'):
                 archivo_guardado = pd.DataFrame(resultados)
                 archivo_guardado.to_excel("resultados.xlsx", index=False, encoding='utf-8-sig')
                 st.success('Los resultados han sido guardados con éxito.')
+
+        # Agregamos un botón para descargar los resultados en formato CSV
+        if len(resultados) > 0:
+            if st.button('Descargar resultados en CSV'):
+                csv = tabla.to_csv(index=False, encoding='utf-8-sig')
+                st.download_button(
+                    label='Descargar resultados como archivo CSV',
+                    data=csv,
+                    file_name='resultados.csv',
+                    mime='text/csv',
+                )
+

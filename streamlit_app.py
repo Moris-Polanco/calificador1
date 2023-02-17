@@ -9,6 +9,15 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 # Activar el wide mode
 st.set_page_config(layout="wide")
 
+  api_key = st.sidebar.text_input("APIkey", type="password")
+    # Using the streamlit cache
+    @st.cache
+    def process_prompt(input):
+
+        return pred.model_prediction(input=input.strip() , api_key=api_key)
+
+    if api_key:
+
 # Agregamos un título al principio
 st.title('Evaluador de ensayos')
 
@@ -103,7 +112,5 @@ if api_key:
                 # Actualizamos la variable de estado del archivo cargado
                 st.session_state.archivo_cargado = True
 
-    except Exception as e:
-                st.error('API Key inválida. Verifique que ha ingresado correctamente la clave proporcionada por OpenAI.')
                 st.sidebar.write('Acceda a más herramientas en https://razonamientocritico.online/')
 

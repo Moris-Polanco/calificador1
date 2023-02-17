@@ -19,14 +19,14 @@ parametro_1 = st.slider('Parámetro 1', min_value=0, max_value=10, step=1)
 parametro_2 = st.slider('Parámetro 2', min_value=0, max_value=10, step=1)
 parametro_3 = st.slider('Parámetro 3', min_value=0, max_value=10, step=1)
 
-# Utilizamos la API de GPT-3 para calificar cada ensayo
-openai.api_key = "API_KEY_DE_GPT-3"
+# Autenticación de OpenAI (oculta la clave en una variable de entorno)
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 resultados = []
 for ensayo in ensayos:
     prompt = f"Califica este ensayo: {ensayo}. Parámetro 1: {parametro_1}, Parámetro 2: {parametro_2}, Parámetro 3: {parametro_3}"
     response = openai.Completion.create(
-        engine="text-davinci-002",
+        engine="text-davinci-003",
         prompt=prompt,
         temperature=0.5,
         max_tokens=1024,

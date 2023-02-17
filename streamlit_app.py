@@ -16,7 +16,7 @@ def process_prompt(input):
 
   return pred.model_prediction(input=input.strip() , api_key=api_key)
 
-    if api_key:
+  if api_key:
 
 # Agregamos un título al principio
 st.title('Evaluador de ensayos')

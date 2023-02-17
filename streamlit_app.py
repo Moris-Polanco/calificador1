@@ -41,7 +41,7 @@ if archivo:
         )
         justificacion = response.choices[0].text.strip()
 
-        resultados.append({'Ensayo': ensayo, 'Justificación': justificacion})
+        resultados.append({'Justificación': justificacion})
 
     # Mostramos los resultados en una tabla
     st.write('Resultados:')

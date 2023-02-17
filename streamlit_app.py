@@ -3,6 +3,12 @@ import pandas as pd
 import openai
 import os
 
+# Establecer el tema dark
+st.set_theme('dark')
+
+# Activar el wide mode
+st.set_page_config(layout="wide")
+
 # Accedemos a la clave de API de OpenAI a través de una variable de entorno
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 

@@ -32,7 +32,7 @@ if archivo:
     if st.button('Evaluar'):
         # Obtenemos los títulos y los ensayos del archivo
         titulos = data[columna_titulo].tolist()
-        ensayos = data[columna_ensayo].tolist().head(10)
+        ensayos = data[columna_ensayo].tolist()
 
         # Utilizamos la API de GPT-3 para calificar cada ensayo
         resultados = []

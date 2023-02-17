@@ -111,5 +111,3 @@ def process_prompt(input):
 
                     # Actualizamos la variable de estado del archivo cargado
                     st.session_state.archivo_cargado = True
-
-                    st.sidebar.write('Acceda a más herramientas en https://razonamientocritico.online/')

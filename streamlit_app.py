@@ -95,5 +95,4 @@ def guardar_resultados(resultados):
             data=tabla.to_csv(index=False),
             file_name='resultados.csv',
             mime='text/csv'
-        # Mostramos un mensaje de éxito
-        st.write('Los resultados se han guardado correctamente en el archivo CSV.')
+        )

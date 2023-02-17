@@ -71,4 +71,4 @@ if archivo:
 
          # Mostramos los resultados en una tabla en un pop up
             if len(resultados) > 0:
-            st.table(resultados, modal=True)
+                st.table(resultados, modal=True)

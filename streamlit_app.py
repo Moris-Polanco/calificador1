@@ -5,9 +5,6 @@ import os
 import base64
 from io import BytesIO
 
-# Establecer el tema dark
-st.set_theme('dark')
-
 # Activar el wide mode
 st.set_page_config(layout="wide")
 

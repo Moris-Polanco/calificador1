@@ -106,7 +106,4 @@ def process_prompt(input):
                         label='Descargar resultados en Excel',
                         data=open(nombre_archivo, 'rb').read(),
                         file_name=nombre_archivo,
-                        mime='application/vnd.ms-excel'
-                    )
-
-                  
+                        mime='application/vnd.ms-excel')

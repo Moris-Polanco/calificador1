@@ -9,6 +9,9 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 # Pedimos al usuario que suba el archivo Excel
 archivo = st.file_uploader('Cargar archivo Excel', type=['xlsx'])
 
+# Definimos los criterios de calificación
+criterios = ['Originalidad', 'Claridad', 'Coherencia', 'Relevancia']
+
 # Si se subió un archivo, lo procesamos
 if archivo:
     # Leemos el archivo con pandas
@@ -18,15 +21,19 @@ if archivo:
     columna_ensayos = st.selectbox('Selecciona la columna que contiene los ensayos:', data.columns)
     ensayos = data[columna_ensayos].tolist()
 
-    # Pedimos al usuario que ingrese los parámetros de calificación
-    parametro_1 = st.slider('Parámetro 1', min_value=0, max_value=10, step=1)
-    parametro_2 = st.slider('Parámetro 2', min_value=0, max_value=10, step=1)
-    parametro_3 = st.slider('Parámetro 3', min_value=0, max_value=10, step=1)
+    # Pedimos al usuario que valore cada criterio
+    valores_criterios = {}
+    for criterio in criterios:
+        valor = st.slider(f'¿Qué tan importante es el criterio {criterio}?', min_value=1, max_value=10, step=1)
+        valores_criterios[criterio] = valor
 
     # Utilizamos la API de GPT-3 para calificar cada ensayo
     resultados = []
     for ensayo in ensayos:
-        prompt = f"Califica este ensayo: {ensayo}. Parámetro 1: {parametro_1}, Parámetro 2: {parametro_2}, Parámetro 3: {parametro_3}"
+        prompt = f"Califica este ensayo: {ensayo}. "
+        for criterio in criterios:
+            peso = valores_criterios[criterio]
+            prompt += f"{criterio}: {peso}, "
         response = openai.Completion.create(
             engine="text-davinci-003",
             prompt=prompt,

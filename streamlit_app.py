@@ -3,6 +3,7 @@ import pandas as pd
 import openai
 import os
 import base64
+from io import BytesIO
 
 # Activar el wide mode
 st.set_page_config(layout="wide")

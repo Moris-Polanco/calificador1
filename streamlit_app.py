@@ -76,14 +76,14 @@ if archivo:
         tabla = pd.DataFrame(resultados)
         st.table(tabla)
         
-            sugerencias = response.choices[0].text.strip()
+        sugerencias = response.choices[0].text.strip()
 
-            # Agregamos la calificación y las sugerencias de mejora a la tabla
-            resultados.append({
-                'Ensayo': titulos[i],
-                'Justificación': justificacion,
-                'Sugerencias de mejora': sugerencias,
-            })
+        # Agregamos la calificación y las sugerencias de mejora a la tabla
+        resultados.append({
+            'Ensayo': titulos[i],
+            'Justificación': justificacion,
+            'Sugerencias de mejora': sugerencias,
+        })
 
         # Mostramos los resultados en una tabla
         st.write('Resultados:')

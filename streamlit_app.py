@@ -82,3 +82,6 @@ if archivo:
                 nombre_archivo = 'resultados_ensayos.xlsx'
                 df_resultados.to_excel(nombre_archivo, index=False)
                 st.success(f'Los resultados han sido exportados al archivo {nombre_archivo}')
+       # Descargamos el archivo Excel a la carpeta de descargas del usuario
+        from google.colab import files
+        files.download(nombre_archivo, root_dir='/content/downloads')

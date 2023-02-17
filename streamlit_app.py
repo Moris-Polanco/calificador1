@@ -12,8 +12,10 @@ archivo = st.file_uploader('Cargar archivo Excel', type=['xlsx'])
 # Pedimos al usuario que defina los criterios de calificación
 st.write('Defina los criterios de calificación:')
 criterios = []
+i = 0
 while True:
-    criterio = st.text_input('Criterio:')
+    criterio = st.text_input(f'Criterio {i}:', key=f'criterio_{i}')
+    i += 1
     if criterio == '':
         break
     criterios.append(criterio)

@@ -49,8 +49,7 @@ if archivo:
                 temperature=0,
                 max_tokens=256,
                 n=1,
-                stop=None,
-                timeout=60
+                stop=None
             )
             justificacion = response.choices[0].text.strip()
 
@@ -61,8 +60,7 @@ if archivo:
                 temperature=0,
                 max_tokens=256,
                 n=1,
-                stop=None,
-                timeout=60
+                stop=None
             )
             sugerencias = response.choices[0].text.strip()
 

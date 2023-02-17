@@ -5,6 +5,9 @@ import os
 import base64
 from io import BytesIO
 
+# Establecer el tema dark
+st.set_theme('dark')
+
 # Activar el wide mode
 st.set_page_config(layout="wide")
 
@@ -47,9 +50,10 @@ if archivo:
                 engine="text-davinci-003",
                 prompt=prompt,
                 temperature=0,
-                max_tokens=512,
+                max_tokens=128,
                 n=1,
-                stop=None
+                stop=None,
+                timeout=60
             )
             justificacion = response.choices[0].text.strip()
 
@@ -58,11 +62,12 @@ if archivo:
                 engine="text-davinci-003",
                 prompt=f"Sugiere mejoras para el ensayo {tipo_ensayo.lower()} titulado '{titulos[i]}'. Ensayo: {ensayo}",
                 temperature=0,
-                max_tokens=512,
+                max_tokens=128,
                 n=1,
-                stop=None
+                stop=None,
+                timeout=60,
             )
-            sugerencias = response.choices[0].text.strip()
+              sugerencias = response.choices[0].text.strip()
 
             # Agregamos la calificación y las sugerencias de mejora a la tabla
             resultados.append({
@@ -71,31 +76,18 @@ if archivo:
                 'Sugerencias de mejora': sugerencias,
             })
 
-        # Mostramos los resultados en una tabla
-        st.write('Resultados:')
-        tabla = pd.DataFrame(resultados)
-        st.table(tabla)
-        
-        sugerencias = response.choices[0].text.strip()
+            # Mostramos los resultados en una tabla
+            st.write('Resultados:')
+            tabla = pd.DataFrame(resultados)
+            st.table(tabla)
 
-        # Agregamos la calificación y las sugerencias de mejora a la tabla
-        resultados.append({
-            'Ensayo': titulos[i],
-            'Justificación': justificacion,
-            'Sugerencias de mejora': sugerencias,
-        })
+            # Creamos un enlace para descargar los resultados en formato Excel
+            archivo_excel = BytesIO()
+            writer = pd.ExcelWriter(archivo_excel, engine='xlsxwriter')
+            tabla.to_excel(writer, index=False)
+            writer.save()
+            archivo_excel.seek(0)
+            b64 = base64.b64encode(archivo_excel.read()).decode()
+            href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="resultados.xlsx">Descargar resultados en formato Excel</a>'
+            st.markdown(href, unsafe_allow_html=True)
 
-        # Mostramos los resultados en una tabla
-        st.write('Resultados:')
-        tabla = pd.DataFrame(resultados)
-        st.table(tabla)
-
-        # Creamos un enlace para descargar los resultados en formato Excel
-        archivo_excel = BytesIO()
-        writer = pd.ExcelWriter(archivo_excel, engine='xlsxwriter')
-        tabla.to_excel(writer, index=False)
-        writer.save()
-        archivo_excel.seek(0)
-        b64 = base64.b64encode(archivo_excel.read()).decode()
-        href = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{b64}" download="resultados.xlsx">Descargar resultados en formato Excel</a>'
-        st.markdown(href, unsafe_allow_html=True)

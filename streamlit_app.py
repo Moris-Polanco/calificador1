@@ -14,9 +14,9 @@ api_key = st.sidebar.text_input("APIkey", type="password")
 @st.cache
 def process_prompt(input):
 
-return pred.model_prediction(input=input.strip() , api_key=api_key)
+  return pred.model_prediction(input=input.strip() , api_key=api_key)
 
-if api_key:
+  if api_key:
 
 # Agregamos un título al principio
 st.title('Evaluador de ensayos')
@@ -113,4 +113,3 @@ if api_key:
                 st.session_state.archivo_cargado = True
 
                 st.sidebar.write('Acceda a más herramientas en https://razonamientocritico.online/')
-

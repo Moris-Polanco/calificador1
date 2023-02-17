@@ -40,7 +40,7 @@ if archivo:
         response = openai.Completion.create(
             engine="text-davinci-003",
             prompt=prompt,
-            temperature=0.5,
+            temperature=0,
             max_tokens=1024,
             n=1,
             stop=None,

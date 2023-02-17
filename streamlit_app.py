@@ -37,10 +37,11 @@ if archivo:
     # Utilizamos la API de GPT-3 para calificar cada ensayo
     resultados = []
     for ensayo in ensayos:
-        prompt = f"Califica este ensayo: {ensayo}. "
+        prompt = f"Califica este ensayo. "
         for criterio in criterios:
             peso = valores_criterios[criterio]
             prompt += f"{criterio}: {peso}, "
+        prompt += f"Ensayo: {ensayo}."
         response = openai.Completion.create(
             engine="text-davinci-002",
             prompt=prompt,
@@ -50,10 +51,10 @@ if archivo:
             stop=None,
             timeout=60,
         )
-        calificacion = response.choices[0].text.strip()
-        resultados.append(calificacion)
+        justificaciones = response.choices[0].text.strip().split(".")
+        resultados.append(dict(zip(criterios, justificaciones)))
 
     # Mostramos los resultados en una tabla
     st.write('Resultados:')
-    tabla = {'Ensayo': ensayos, 'Calificación': resultados}
+    tabla = pd.DataFrame(resultados)
     st.table(tabla)

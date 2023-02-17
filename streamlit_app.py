@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import openai
 import os
+import zipfile
 
 # Configuramos el diseño de la página
 st.set_page_config(layout="wide")
@@ -73,26 +74,28 @@ if archivo:
         tabla = pd.DataFrame(resultados)
         st.table(tabla)
 
-       # Agregamos un botón para guardar los resultados en un archivo CSV
-        if st.button('Guardar resultados'):
-            guardar_resultados(resultados)
+                # Agregamos un botón para guardar los resultados en un archivo Excel
+        if len(resultados) > 0:
+            if st.button('Guardar resultados en Excel'):
+                archivo_guardado = pd.DataFrame(resultados)
+                archivo_guardado.to_excel("resultados.xlsx", index=False, encoding='utf-8-sig')
+                st.success('¡Resultados guardados en archivo Excel!')
 
-def guardar_resultados(resultados):
-    # Convertimos los resultados a un dataframe de pandas
-    df = pd.DataFrame(resultados)
+        # Agregamos un botón para guardar los resultados en un archivo zip
+        if len(resultados) > 0:
+            if st.button('Guardar resultados en archivo zip'):
+                # Creamos un archivo zip y lo abrimos en modo de escritura
+                with zipfile.ZipFile("resultados.zip", mode='w') as archivo_zip:
+                    # Agregamos el archivo CSV con los resultados al archivo zip
+                    archivo_csv = pd.DataFrame(resultados)
+                    archivo_csv.to_csv("resultados.csv", index=False, encoding='utf-8-sig')
+                    archivo_zip.write("resultados.csv")
+                # Descargamos el archivo zip
+                st.download_button(
+                    label='Descargar resultados como archivo zip',
+                    data=open("resultados.zip", "rb").read(),
+                    file_name='resultados.zip',
+                    mime='application/zip'
+                )
+                st.success('¡Resultados guardados en archivo zip!')
 
-    # Pedimos al usuario que seleccione la ubicación y el nombre del archivo
-    archivo_guardado = st.file_uploader('Selecciona la ubicación y el nombre del archivo donde guardar los resultados', type=['csv'])
-
-    if archivo_guardado:
-        # Guardamos los resultados en un archivo CSV
-        with open(archivo_guardado.name, 'w') as f:
-            df.to_csv(f, index=False)
-            
-# Agregamos un botón para guardar los resultados en un archivo CSV
-st.download_button(
-    label='Descargar resultados como archivo CSV',
-    data=tabla.to_csv(index=False),
-    file_name='resultados.csv',
-    mime='text/csv'
-)

@@ -9,11 +9,8 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 # Agregamos un título al principio
 st.title('Evaluador de ensayos')
 
-# Agregamos información en una columna a la izquierda
-st.sidebar.subheader('Instrucciones')
-st.sidebar.markdown('Suba un archivo .XLSX con los ensayos de sus alumnos.')
-st.sidebar.subheader('Autor')
-st.sidebar.markdown('Moris Polanco')
+# Agregamos información en el cuerpo
+st.write('Suba un archivo .XLSX con los ensayos de sus alumnos. Seleccione la columna que contiene los títulos y la que contiene los ensayos, y presione el botón "Evaluar".')
 
 # Pedimos al usuario que suba el archivo Excel
 archivo = st.file_uploader('Cargar archivo Excel', type=['xlsx'])
@@ -69,5 +66,5 @@ if archivo:
 
     # Mostramos los resultados en una tabla
     st.write('Resultados:')
-    tabla = pd.DataFrame(resultados)
+    tabla = pd.DataFrame(resultados, columns=['Ensayo', 'Justificación', 'Sugerencias de mejora'])
     st.table(tabla)

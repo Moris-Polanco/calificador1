@@ -52,7 +52,7 @@ if archivo:
         response = openai.Completion.create(
             engine="text-davinci-002",
             prompt=f"Sugiere mejoras para el ensayo titulado '{titulos[i]}'. Ensayo: {ensayo}",
-            temperature=0.5,
+            temperature=0,
             max_tokens=1024,
             n=1,
             stop=None,

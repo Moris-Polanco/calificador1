@@ -67,7 +67,7 @@ if archivo:
                 stop=None,
                 timeout=60,
             )
-              sugerencias = response.choices[0].text.strip()
+            sugerencias = response.choices[0].text.strip()
 
             # Agregamos la calificación y las sugerencias de mejora a la tabla
             resultados.append({

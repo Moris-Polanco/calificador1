@@ -9,12 +9,12 @@ st.set_option('deprecation.showfileUploaderEncoding', False)
 # Activar el wide mode
 st.set_page_config(layout="wide")
 
-  api_key = st.sidebar.text_input("APIkey", type="password")
-    # Using the streamlit cache
-    @st.cache
-    def process_prompt(input):
+api_key = st.sidebar.text_input("APIkey", type="password")
+  # Using the streamlit cache
+  @st.cache
+  def process_prompt(input):
 
-        return pred.model_prediction(input=input.strip() , api_key=api_key)
+  return pred.model_prediction(input=input.strip() , api_key=api_key)
 
     if api_key:
 

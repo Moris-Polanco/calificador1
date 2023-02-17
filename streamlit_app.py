@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import openai
-import os
 
 # Accedemos a la clave de API de OpenAI a través de una variable de entorno
 openai.api_key = os.environ.get("OPENAI_API_KEY")
@@ -47,6 +46,14 @@ if archivo:
             timeout=60,
         )
         justificacion = response.choices[0].text.strip()
+
+        # Obtenemos la calificación y la justificación
+        calificacion = justificacion.split("Nota:")[1].split(".")[0].strip()
+        justificacion = justificacion.replace(calificacion, "la nota obtenida", 1)
+
+        # Si la calificación es menor que 10, señalamos qué falta para alcanzarla
+        if float(calificacion) < 10:
+            justificacion += f"\n\nPara obtener una calificación de 10, el ensayo debería incluir: {response.choices[0].text.split('Para obtener una calificación de 10, el ensayo debería incluir:')[1]}"
 
         resultados.append({'Ensayo': titulos[i], 'Justificación': justificacion})
 

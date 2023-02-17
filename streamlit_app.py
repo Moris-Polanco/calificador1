@@ -6,8 +6,10 @@ import pandas as pd
 # Accedemos a la clave de API de OpenAI a través de una variable de entorno
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
+# Agregamos un título al principio
+st.title('Evaluador de ensayos')
+
 # Agregamos información en una columna a la izquierda
-st.sidebar.title('Calificador de ensayos')
 st.sidebar.subheader('Instrucciones')
 st.sidebar.markdown('Suba un archivo .XLSX con los ensayos de sus alumnos y especifique qué columna contiene los ensayos.')
 st.sidebar.subheader('Autor')
@@ -31,7 +33,7 @@ if archivo:
         prompt = f"Califica este ensayo. "
         prompt += f"Ensayo: {ensayo}. "
         response = openai.Completion.create(
-            engine="text-davinci-003",
+            engine="text-davinci-002",
             prompt=prompt,
             temperature=0.5,
             max_tokens=1024,

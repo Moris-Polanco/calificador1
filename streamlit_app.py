@@ -103,7 +103,7 @@ if api_key:
                 # Actualizamos la variable de estado del archivo cargado
                 st.session_state.archivo_cargado = True
 
-except Exception as e:
+    except Exception as e:
     st.error('API Key inválida. Verifique que ha ingresado correctamente la clave proporcionada por OpenAI.')
     st.sidebar.write('Acceda a más herramientas en https://razonamientocritico.online/')
 

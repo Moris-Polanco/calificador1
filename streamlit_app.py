@@ -90,9 +90,9 @@ def guardar_resultados(resultados):
             df.to_csv(f, index=False)
             
 # Agregamos un botón para guardar los resultados en un archivo CSV
-        st.download_button(
-            label='Descargar resultados como archivo CSV',
-            data=tabla.to_csv(index=False),
-            file_name='resultados.csv',
-            mime='text/csv'
-        )
+st.download_button(
+    label='Descargar resultados como archivo CSV',
+    data=tabla.to_csv(index=False),
+    file_name='resultados.csv',
+    mime='text/csv'
+)

@@ -31,7 +31,7 @@ if archivo:
     # Agregamos un botón para iniciar la evaluación
     if st.button('Evaluar'):
         # Obtenemos los títulos y los ensayos del archivo
-        titulos = data[columna_titulo].tolist().head(10)
+        titulos = data[columna_titulo].head(10).tolist()
         ensayos = data[columna_ensayo].tolist().head(10)
 
         # Utilizamos la API de GPT-3 para calificar cada ensayo

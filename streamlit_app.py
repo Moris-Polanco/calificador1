@@ -3,70 +3,73 @@ import pandas as pd
 import openai
 import os
 
-# Ocultar los detalles del archivo cargado en Streamlit
-st.set_option('deprecation.showfileUploaderEncoding', False)
 
 # Activar el wide mode
 st.set_page_config(layout="wide")
 
-api_key = st.sidebar.text_input("API Key", type="password")
+# Accedemos a la clave de API de OpenAI a través de una variable de entorno
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
-# Usar el cache de Streamlit
-@st.cache
-def process_prompt(input, api_key):
-    model_prediction = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=input,
-        temperature=0,
-        max_tokens=512,
-        n=1,
-        stop=None,
-        api_key=api_key
-    )
-    return model_prediction.choices[0].text.strip()
+# Agregamos un título al principio
+st.title('Evaluador de ensayos')
 
-if api_key:
-    st.title('Evaluador de ensayos')
-    st.write('Suba un archivo .XLSX con los ensayos de sus alumnos. Máximo: 10 ensayos.')
+# Agregamos información de instrucciones
+st.write('Suba un archivo .XLSX con los ensayos de sus alumnos.')
 
-    st.sidebar.title('Herramientas de evaluación')
-    st.sidebar.write('Ingrese su API Key de OpenAI para poder utilizar esta herramienta:')
+# Pedimos al usuario que suba el archivo Excel
+archivo = st.file_uploader('Cargar archivo Excel', type=['xlsx'])
 
+if archivo:
+    # Leemos el archivo con pandas
+    data = pd.read_excel(archivo)
+
+    # Pedimos al usuario que seleccione las columnas con el título y el ensayo
+    columnas = data.columns
+    columna_titulo = st.selectbox('Selecciona la columna que contiene los títulos:', columnas)
+    columna_ensayo = st.selectbox('Selecciona la columna que contiene los ensayos:', columnas)
+
+    # Agregamos un botón para iniciar la evaluación
     if st.button('Evaluar'):
-        archivo = st.file_uploader('Cargar archivo Excel', type=['xlsx'])
+        # Obtenemos los títulos y los ensayos del archivo
+        titulos = data[columna_titulo].tolist().head(10)
+        ensayos = data[columna_ensayo].tolist().head(10)
 
-        if archivo:
-            data = pd.read_excel(archivo)
+        # Utilizamos la API de GPT-3 para calificar cada ensayo
+        resultados = []
+        for i, ensayo in enumerate(ensayos):
+            prompt = f"Califica el ensayo titulado '{titulos[i]}'. "
+            prompt += f"Ensayo: {ensayo}. "
+            response = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=prompt,
+                temperature=0,
+                max_tokens=512,
+                n=1,
+                stop=None
+                
+            )
+            justificacion = response.choices[0].text.strip()
 
-            columnas = data.columns
-            columna_titulo = st.selectbox('Selecciona la columna que contiene los títulos:', columnas)
-            columna_ensayo = st.selectbox('Selecciona la columna que contiene los ensayos:', columnas)
+            # Agregamos sugerencias de mejora a la justificación
+            response = openai.Completion.create(
+                engine="text-davinci-003",
+                prompt=f"Sugiere mejoras para el ensayo titulado '{titulos[i]}'. Ensayo: {ensayo}",
+                temperature=0,
+                max_tokens=512,
+                n=1,
+                stop=None,
+                timeout=60,
+            )
+            sugerencias = response.choices[0].text.strip()
 
-            titulos = data[columna_titulo].head(10).tolist()
-            ensayos = data[columna_ensayo].head(10).tolist()
+            # Agregamos la calificación y las sugerencias de mejora a la tabla
+            resultados.append({
+                'Ensayo': titulos[i],
+                'Justificación': justificacion,
+                'Sugerencias de mejora': sugerencias,
+            })
 
-            resultados = []
-            for i, ensayo in enumerate(ensayos):
-                prompt = f"Califica el ensayo titulado '{titulos[i]}'. Ensayo: {ensayo}."
-                justificacion = process_prompt(prompt, api_key)
-
-                prompt = f"Sugiere mejoras para el ensayo titulado '{titulos[i]}'. Ensayo: {ensayo}."
-                sugerencias = process_prompt(prompt, api_key)
-
-                resultados.append({
-                    'Ensayo': titulos[i],
-                    'Justificación': justificacion,
-                    'Sugerencias de mejora': sugerencias,
-                })
-
-            st.write('Resultados:')
-            tabla = pd.DataFrame(resultados)
-            st.table(tabla)
-
-            nombre_archivo = 'resultados.xlsx'
-            tabla.to_excel(nombre_archivo, index=False)
-            st.download_button(
-            label='Descargar resultados en Excel',
-            data=open(nombre_archivo, 'rb').read(),
-            file_name=nombre_archivo,
-            mime='application/vnd.ms-excel')
+        # Mostramos los resultados en una tabla
+        st.write('Resultados:')
+        tabla = pd.DataFrame(resultados)
+        st.table(tabla)

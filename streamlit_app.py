@@ -73,3 +73,10 @@ if archivo:
         st.write('Resultados:')
         tabla = pd.DataFrame(resultados)
         st.table(tabla)
+        
+        # Agregamos un botón para descargar los resultados en un archivo CSV
+        csv = tabla.to_csv(index=False)
+        b64 = base64.b64encode(csv.encode()).decode()
+        href = f'<a href="data:file/csv;base64,{b64}" download="resultados.csv">Descargar resultados</a>'
+        st.markdown(href, unsafe_allow_html=True)
+

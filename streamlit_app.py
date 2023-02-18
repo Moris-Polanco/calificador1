@@ -69,7 +69,6 @@ if archivo:
                 'Sugerencias de mejora': sugerencias,
             })
 
-              # Mostramos los resultados en una tabla en un pop up
-        if len(resultados) > 0:
-            tabla_resultados = pd.DataFrame(resultados)
-            st.write(f'<h2>Resultados:</h2>{tabla_resultados.to_html(index=False)}', unsafe_allow_html=True)
+             if len(resultados) > 0:
+                tabla_resultados = pd.DataFrame(resultados)
+                st.table(tabla_resultados)

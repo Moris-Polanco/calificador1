@@ -71,4 +71,7 @@ if archivo:
 
 if len(resultados) > 0:
     tabla_resultados = pd.DataFrame(resultados)
-    st.write(tabla_resultados)
+    st.table(tabla_resultados)
+else:
+    st.write("No se encontraron resultados")
+

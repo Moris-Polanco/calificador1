@@ -69,6 +69,6 @@ if archivo:
                 'Sugerencias de mejora': sugerencias,
             })
 
- if len(resultados) > 0:
+if len(resultados) > 0:
     tabla_resultados = pd.DataFrame(resultados)
     st.table(tabla_resultados)

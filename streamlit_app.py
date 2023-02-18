@@ -71,4 +71,4 @@ if archivo:
 
 if len(resultados) > 0:
     tabla_resultados = pd.DataFrame(resultados)
-    st.table(tabla_resultados)
+    st.write(tabla_resultados)

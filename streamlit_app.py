@@ -45,7 +45,7 @@ if archivo:
                 max_tokens=512,
                 n=1,
                 stop=None,
-                timeout=15
+                timeout=5
             )
             justificacion = response.choices[0].text.strip()
 
@@ -57,7 +57,7 @@ if archivo:
                 max_tokens=512,
                 n=1,
                 stop=None,
-                timeout=15,
+                timeout=5,
             )
             sugerencias = response.choices[0].text.strip()
 

@@ -39,7 +39,7 @@ if archivo:
             prompt = f"Califica el ensayo titulado '{titulos[i]}'. "
             prompt += f"Ensayo: {ensayo}. "
             response = openai.Completion.create(
-                engine="text-davinci-003",
+                engine="text-curie-001",
                 prompt=prompt,
                 temperature=0,
                 max_tokens=512,

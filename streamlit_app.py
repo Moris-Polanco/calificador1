@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import openai
 import os
-import zipfile
 
 # Configuramos el diseño de la página
 st.set_page_config(layout="wide")
@@ -69,9 +68,10 @@ if archivo:
                 'Sugerencias de mejora': sugerencias,
             })
 
-if len(resultados) > 0:
-    tabla_resultados = pd.DataFrame(resultados)
-    tabla_html = tabla_resultados.to_html(index=False)
-    st.write(f'<h2>Resultados:</h2>{tabla_html}', unsafe_allow_html=True, target='new')
-else:
-    st.write("No se encontraron resultados")
+        # Mostramos los resultados en una tabla en un pop up
+        if len(resultados) > 0:
+            tabla_resultados = pd.DataFrame(resultados)
+            tabla_html = tabla_resultados.to_html(index=False)
+            st.write(f'<h2>Resultados:</h2>{tabla_html}', unsafe_allow_html=True, target='new')
+        else:
+            st.write("No se encontraron resultados")

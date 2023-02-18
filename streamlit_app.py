@@ -39,12 +39,13 @@ if archivo:
             prompt = f"Califica el ensayo titulado '{titulos[i]}'. "
             prompt += f"Ensayo: {ensayo}. "
             response = openai.Completion.create(
-                engine="text-curie-001",
+                engine="text-davinci-003",
                 prompt=prompt,
                 temperature=0,
                 max_tokens=512,
                 n=1,
                 stop=None
+                timeout=15
                 
             )
             justificacion = response.choices[0].text.strip()
@@ -57,7 +58,7 @@ if archivo:
                 max_tokens=512,
                 n=1,
                 stop=None,
-                timeout=60,
+                timeout=15,
             )
             sugerencias = response.choices[0].text.strip()
 

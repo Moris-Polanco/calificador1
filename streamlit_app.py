@@ -73,4 +73,5 @@ if len(resultados) > 0:
     tabla_resultados = pd.DataFrame(resultados)
     tabla_html = tabla_resultados.to_html(index=False)
     st.write(f'<h2>Resultados:</h2>{tabla_html}', unsafe_allow_html=True, target='new')
-
+else:
+    st.write("No se encontraron resultados")

@@ -44,9 +44,8 @@ if archivo:
                 temperature=0,
                 max_tokens=512,
                 n=1,
-                stop=None
+                stop=None,
                 timeout=15
-                
             )
             justificacion = response.choices[0].text.strip()
 

@@ -36,7 +36,7 @@ if archivo:
         # Utilizamos la API de GPT-3 para calificar cada ensayo
         resultados = []
         for i, ensayo in enumerate(ensayos):
-            prompt = f"Califica el ensayo titulado '{titulos[i]}'. "
+            prompt = f"Califica el ensayo titulado '{titulos[i]}' Sé exigente al evaluar, quita puntos por mala ortografía."
             prompt += f"Ensayo: {ensayo}. "
             response = openai.Completion.create(
                 engine="text-davinci-003",

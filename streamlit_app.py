@@ -1,13 +1,13 @@
-import streamlit as st
-import pandas as pd
-import openai
-import os
-
 hide_menu_style = """
         <style>
         #MainMenu {visibility: hidden;}
         </style>
         """
+import streamlit as st
+import pandas as pd
+import openai
+import os
+
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 # Configuramos el diseño de la página

@@ -3,8 +3,6 @@ import pandas as pd
 import openai
 import os
 
-st.markdown(hide_menu_style, unsafe_allow_html=True)
-
 # Configuramos el diseño de la página
 st.set_page_config(layout="wide")
 

@@ -11,8 +11,6 @@ if not api_key:
 else:
     openai.api_key = api_key
 
-# Set page layout
-st.set_page_config(layout="wide")
 
 # Add a description in the left column
 st.sidebar.write("""

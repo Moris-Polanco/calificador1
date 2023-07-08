@@ -12,8 +12,12 @@ openai.api_key = os.environ.get("OPENAI_API_KEY")
 # Agregamos un título al principio
 st.title('Evaluador de ensayos')
 
-# Agregamos información de instrucciones
-st.write('Suba un archivo .XLSX con los ensayos de sus alumnos.')
+# Agregamos información de instrucciones en la columna izquierda
+st.sidebar.title('Instrucciones')
+st.sidebar.write('1. Pida a sus alumnos que escriban un ensayo en un Google Forms.')
+st.sidebar.write('2. Convierta el formulario en una hoja de cálculo con al menos dos columnas: Autor y Ensayo.')
+st.sidebar.write('3. Cargue la hoja de cálculo a la aplicación de Streamlit.')
+st.sidebar.write('4. Haga clic en Evaluar y espere los resultados.')
 
 # Pedimos al usuario que suba el archivo Excel
 archivo = st.file_uploader('Cargar archivo Excel', type=['xlsx'])
